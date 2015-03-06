@@ -10,6 +10,7 @@ permalink: /collections/
     {% for collection in site.data.collections %}
         <h2>
           <a class="collection-link" href="{{ collection.id | prepend: '/collections/' | prepend: site.baseurl }}.html">{{ collection.name }}</a>
+          <small>({{ collection.num_targets }} URLs)</small>
         </h2>
         <p>
         {% if collection.description != "" %}

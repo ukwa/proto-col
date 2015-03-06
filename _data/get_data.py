@@ -35,20 +35,24 @@ for c in collections_tree:
 	if col['field_publish'] == True:
 		print("Publishing...",c['title'])
 		collections_to_publish.append(col)
-		# Make a page:
-		with codecs.open('../collections/%s.html' % c_id, 'w', encoding='utf8') as outfile:
-			outfile.write("---\n")
-			outfile.write("layout: collection\n")
-			outfile.write("title: %s\n" % col['name'])
-			outfile.write("collection_id: %s\n" % c_id)
-			outfile.write("---\n")
-			outfile.write(col['description'])
 
 		# Look up all Targets with in this Collection and add them.
 		t_url = "https://www.webarchive.org.uk/act/api/targets/bycollection/%s" % c_id
 		t_req = requests.get(t_url, headers=headers)
 		targets = json.loads(t_req.content)
 		targets_by_collection[c_id] = targets
+		col['num_targets'] = len(targets)
+
+		# Make a page:
+		with codecs.open('../collections/%s.html' % c_id, 'w', encoding='utf8') as outfile:
+			outfile.write("---\n")
+			outfile.write("layout: collection\n")
+			outfile.write("title: %s\n" % col['name'])
+			outfile.write("collection_id: %s\n" % c_id)
+			outfile.write("num_targets: %s\n" % col['num_targets'])
+			outfile.write("---\n")
+			outfile.write(col['description'])
+
 
 	else:
 		print("Skipping...",c['title'])	

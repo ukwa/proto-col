@@ -6,6 +6,7 @@
         "vocabulary": null, 
         "field_publish": true, 
         "url": "act-252", 
+        "num_targets": 626, 
         "field_owner": null, 
         "children": [
             {
@@ -133,6 +134,7 @@
         "vocabulary": null, 
         "field_publish": true, 
         "url": "act-250", 
+        "num_targets": 1743, 
         "field_owner": null, 
         "children": [
             {
@@ -350,6 +352,7 @@
         "vocabulary": null, 
         "field_publish": true, 
         "url": null, 
+        "num_targets": 0, 
         "field_owner": null, 
         "children": [], 
         "name": "French in London", 
@@ -368,6 +371,7 @@
         "vocabulary": null, 
         "field_publish": true, 
         "url": "act-24", 
+        "num_targets": 752, 
         "field_owner": null, 
         "children": [
             {
@@ -405,6 +409,7 @@
         "vocabulary": null, 
         "field_publish": true, 
         "url": "act-151", 
+        "num_targets": 77, 
         "field_owner": null, 
         "children": [], 
         "name": "Margaret Thatcher", 
@@ -423,6 +428,7 @@
         "vocabulary": null, 
         "field_publish": true, 
         "url": "act-178", 
+        "num_targets": 174, 
         "field_owner": null, 
         "children": [], 
         "name": "Nelson Mandela", 
@@ -441,6 +447,7 @@
         "vocabulary": null, 
         "field_publish": true, 
         "url": "act-173", 
+        "num_targets": 641, 
         "field_owner": null, 
         "children": [
             {
@@ -478,6 +485,7 @@
         "vocabulary": null, 
         "field_publish": true, 
         "url": "act-171", 
+        "num_targets": 1148, 
         "field_owner": null, 
         "children": [
             {
@@ -623,6 +631,7 @@
         "vocabulary": null, 
         "field_publish": true, 
         "url": "act-312", 
+        "num_targets": 1, 
         "field_owner": null, 
         "children": [], 
         "name": "SmashFest UK", 
@@ -641,6 +650,7 @@
         "vocabulary": null, 
         "field_publish": true, 
         "url": "act-176", 
+        "num_targets": 501, 
         "field_owner": null, 
         "children": [], 
         "name": "UK response to Philippines disaster 2013", 
@@ -659,6 +669,7 @@
         "vocabulary": null, 
         "field_publish": true, 
         "url": "act-177", 
+        "num_targets": 128, 
         "field_owner": null, 
         "children": [], 
         "name": "Winter Olympics Sochi 2014", 
