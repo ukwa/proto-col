@@ -1,11 +1,16 @@
 import json
 import requests
 import ConfigParser
+import codecs
 
 # Notes
 # 
 # Collections key should not be quoted, i.e. "1" not "\"1\""
-#
+# Collections could include the full collections properties
+# Targets do not report collection_cats
+# The /api/targets/bycollection/X hook appears to be fully recursive.
+# The instances are not available via the API (fix checked in)
+# Collection.updatedAt appears to be in milliseconds rather than the usual seconds since epoch.
 
 config = ConfigParser.ConfigParser()
 config.read('act.cfg')
@@ -20,17 +25,36 @@ headers = {
 
 all = requests.get("https://www.webarchive.org.uk/act/api/collections", headers=headers)
 collections_tree = json.loads(all.content)
+collections_to_publish = []
+targets_by_collection = {}
 for c in collections_tree:
-	col_url = "https://www.webarchive.org.uk/act/api/collections/%s" % (c['key'].replace("\"",""))
+	c_id = c['key'].replace("\"","")
+	col_url = "https://www.webarchive.org.uk/act/api/collections/%s" % c_id
 	col_req = requests.get(col_url, headers=headers)
 	col = json.loads(col_req.content)
 	if col['field_publish'] == True:
 		print("Publishing...",c['title'])
-		#print(col)
-		# Look up all Targets with in this Collection:
-		
+		collections_to_publish.append(col)
+		# Make a page:
+		with codecs.open('../collections/%s.html' % c_id, 'w', encoding='utf8') as outfile:
+			outfile.write("---\n")
+			outfile.write("layout: collection\n")
+			outfile.write("title: %s\n" % col['name'])
+			outfile.write("collection_id: %s\n" % c_id)
+			outfile.write("---\n")
+			outfile.write(col['description'])
+
+		# Look up all Targets with in this Collection and add them.
+		t_url = "https://www.webarchive.org.uk/act/api/targets/bycollection/%s" % c_id
+		t_req = requests.get(t_url, headers=headers)
+		targets = json.loads(t_req.content)
+		targets_by_collection[c_id] = targets
+
 	else:
-		print("Skipping...",c['title'])
+		print("Skipping...",c['title'])	
 
-
-
+# And write out:
+with open('collections.json', 'w') as outfile:
+    json.dump(collections_to_publish, outfile, indent=4)
+with open('targets.json', 'w') as outfile:
+    json.dump(targets_by_collection, outfile, indent=4)

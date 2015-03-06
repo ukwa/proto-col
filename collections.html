@@ -1,0 +1,27 @@
+---
+layout: page
+title: Collections
+permalink: /collections/
+---
+
+<div class="home">
+
+  <div class="collection-list">
+    {% for collection in site.data.collections %}
+        <h2>
+          <a class="collection-link" href="{{ collection.id | prepend: '/collections/' | prepend: site.baseurl }}.html">{{ collection.name }}</a>
+        </h2>
+        <p>
+        {% if collection.description != "" %}
+        {{ collection.description | truncate: 100,'...' }}<br/>
+        {% endif %}
+        <!--
+        <span class="collection-meta">{{ collection.updatedAt | divided_by:1000 | date: "%b %-d, %Y" }}</span>
+        -->
+        </p>
+    {% endfor %}
+  </div>
+
+  <p class="rss-subscribe">subscribe <a href="{{ "/collections-feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
+
+</div>
