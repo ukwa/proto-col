@@ -2,6 +2,7 @@ import json
 import requests
 import ConfigParser
 import codecs
+import yaml
 
 # Notes
 # 
@@ -43,7 +44,7 @@ for c in collections_tree:
 		targets_by_collection[c_id] = targets
 		col['num_targets'] = len(targets)
 
-		# Make a page:
+		# Make a Collection page:
 		with codecs.open('../collections/%s.html' % c_id, 'w', encoding='utf8') as outfile:
 			outfile.write("---\n")
 			outfile.write("layout: collection\n")
@@ -53,6 +54,25 @@ for c in collections_tree:
 			outfile.write("---\n")
 			outfile.write(col['description'])
 
+		# Make Target pages:
+		for target in targets:
+			t_id = target['id']
+			t_data = {}
+			t_data['layout'] = 'target'
+			t_data['title'] = target['title']
+			t_data['start_date'] = target['crawlStartDateISO']
+			t_data['end_date'] = target['crawlEndDateISO']
+			urls = []
+			for fieldUrl in target['fieldUrls']:
+				urls.append(fieldUrl['url'])
+			t_data['urls'] = urls
+			t_data['metadata'] = target
+			with codecs.open('../targets/%s.html' % t_id, 'w', encoding='utf8') as outfile:
+				outfile.write("---\n")
+				outfile.write(yaml.safe_dump(t_data, default_flow_style=False) )
+				outfile.write("---\n")
+				if( target['description'] ):
+					outfile.write(target['description'])
 
 	else:
 		print("Skipping...",c['title'])	

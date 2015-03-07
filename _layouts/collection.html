@@ -17,7 +17,7 @@ layout: default
     {% if targets[0] == c_id %}
     <ul>
     {% for target in targets[1] %}
-    <li><a href="https://www.webarchive.org.uk/act/wayback/*/{{ target['fieldUrls'][0]['url'] }}">{{ target['title'] }}</a></li>
+    <li><a href="{{ site.baseurl }}/target/{ target['id'] }}">{{ target['title'] }}</a></li>
     {% endfor %}
     </ul>
     {% endif %}
